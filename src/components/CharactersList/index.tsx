@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import api from "../../services/contants";
+import { ContainerCharacter } from "./styles";
 
 interface ResponseDataMarvel {
   id: string;
@@ -40,7 +41,7 @@ const CharactersList = () => {
   };
 
   return (
-    <div>
+    <ContainerCharacter>
       <input
         name="search"
         type="text"
@@ -58,7 +59,7 @@ const CharactersList = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </ContainerCharacter>
   );
 };
 
