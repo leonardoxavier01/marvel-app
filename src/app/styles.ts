@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ConatinerApp = styled.main`
-  padding: 2rem;
-  height: 100vh;
+  padding: 5rem 4rem;
+  min-height: 100vh;
 `;
 
 export const BoxImage = styled.div`
