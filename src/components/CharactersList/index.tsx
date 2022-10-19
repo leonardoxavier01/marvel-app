@@ -1,44 +1,19 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import api from "../../services/contants";
+import React, { useContext, useState } from "react";
+import { CharactersContext } from "../../contexts/CharactersContext";
 import { ContainerCharacter } from "./styles";
+import Button from "../Button";
+import CharacterItem from "../CharacterItem";
+import SearchPerCommic from "../SearchPerComic";
 
-interface ResponseDataMarvel {
-  id: string;
-  name: string;
-  description: string;
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
-}
-
-const CharactersList = () => {
-  const [characters, setCharacters] = useState<ResponseDataMarvel[]>([]);
-  const [search, setSearch] = useState("");
-  const [test, setTest] = useState("");
-
-  const fetchApi = () => {
-    api
-      .get(`characters`)
-      .then((response) => setCharacters(response.data.data.results))
-      .catch((err) => alert(`${err} There was an error here`));
-  };
-
-  useEffect(() => {
-    fetchApi();
-  }, []);
-
-  const handleNameStartsWith = () => {
-    if (search.length > 0) {
-      api
-        .get(`characters?nameStartsWith=${search}`)
-        .then((response) => setCharacters(response.data.data.results))
-        .catch((err) => alert(`${err} There was an error here`));
-    } else {
-      fetchApi();
-    }
-  };
+const CharactersList: React.FC = () => {
+  const {
+    dataCharacters,
+    searchNameStart,
+    setSearchNameStart,
+    dataFetching,
+    handleMore,
+    noMorePosts,
+  } = useContext(CharactersContext);
 
   return (
     <ContainerCharacter>
@@ -46,19 +21,29 @@ const CharactersList = () => {
         name="search"
         type="text"
         placeholder="Search..."
-        onChange={(e) => setSearch(e.target.value)}
-        value={search}
+        onChange={(e) => setSearchNameStart(e.target.value)}
+        value={searchNameStart}
       />
-      <button onClick={handleNameStartsWith}> buscar</button>
-      <h4>{search}</h4>
-      <ul>
-        {characters.map((character) => (
-          <li key={character.id}>
-            <p>{character.name}</p>
-            <span>{character.description}</span>
-          </li>
-        ))}
-      </ul>
+      <button onClick={dataFetching}> buscar</button>
+      <SearchPerCommic />
+      {dataCharacters.length > 0 ? (
+        <>
+          <ul>
+            {dataCharacters.map((item) => (
+              <CharacterItem
+                key={item.id}
+                nameItem={item.name}
+                descriptionItem={item.description}
+              />
+            ))}
+          </ul>
+          <Button disabled={noMorePosts} onClick={handleMore}>
+            See more
+          </Button>
+        </>
+      ) : (
+        <p>Nenhum resultado encontrado</p>
+      )}
     </ContainerCharacter>
   );
 };
