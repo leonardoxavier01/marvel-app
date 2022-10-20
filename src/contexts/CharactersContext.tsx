@@ -53,7 +53,12 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   const dataFetching = () => {
     api
       .get(endpointAndParams)
-      .then((response) => setDataCharacters(response.data.data.results))
+      .then((response) => {
+        setDataCharacters(response.data.data.results);
+        if (response.data.data.results.length >= 1) {
+          setNoMorePost(false);
+        }
+      })
       .catch((err) => alert(`${err} There was an error here`));
   };
 
