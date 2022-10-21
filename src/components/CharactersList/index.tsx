@@ -3,7 +3,8 @@ import { CharactersContext } from "../../contexts/CharactersContext";
 import { ContainerCharacter } from "./styles";
 import Button from "../Button";
 import CharacterItem from "../CharacterItem";
-import SearchPerCommic from "../SearchPerComic";
+import FilterPerComics from "../FilterPerComics";
+import InputText from "../InputText";
 
 const CharactersList: React.FC = () => {
   const {
@@ -17,21 +18,20 @@ const CharactersList: React.FC = () => {
 
   return (
     <ContainerCharacter>
-      <input
-        name="search"
-        type="text"
-        placeholder="Search..."
+      <InputText
+        placeholder="Search name start with"
         onChange={(e) => setSearchNameStart(e.target.value)}
         value={searchNameStart}
+        onClick={dataFetching}
       />
-      <button onClick={dataFetching}> buscar</button>
-      <SearchPerCommic />
+      <FilterPerComics />
       {dataCharacters.length > 0 ? (
         <>
           <ul>
-            {dataCharacters.map((item) => (
+            {dataCharacters.map((item, index) => (
               <CharacterItem
-                key={item.id}
+                key={`itemId${item.id}&position=${index}`}
+                imageItem={`${item.thumbnail.path}.${item.thumbnail.extension}`}
                 nameItem={item.name}
                 descriptionItem={item.description}
               />

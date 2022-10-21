@@ -14,3 +14,7 @@ export const BoxImage = styled.div`
     width: 9rem;
   }
 `;
+
+export const ContainerLeftRigth = styled.div`
+  display: flex;
+`;

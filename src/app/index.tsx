@@ -1,6 +1,7 @@
 import CharactersList from "../components/CharactersList";
-import { ConatinerApp, BoxImage } from "./styles";
+import { ConatinerApp, BoxImage, ContainerLeftRigth } from "./styles";
 import marvelLogo from "../assets/images/marvel-logo.png";
+import SearchCharacter from "../components/RatingCharacter";
 
 const App = () => {
   return (
@@ -8,7 +9,10 @@ const App = () => {
       <BoxImage>
         <img src={marvelLogo} alt="marvel logo" />
       </BoxImage>
-      <CharactersList />
+      <ContainerLeftRigth>
+        <CharactersList />
+        <SearchCharacter />
+      </ContainerLeftRigth>
     </ConatinerApp>
   );
 };
