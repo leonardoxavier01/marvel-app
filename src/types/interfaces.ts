@@ -11,5 +11,11 @@ export interface IResponseCharacters {
 export interface IResponseComics {
   id: string;
   title: string;
-  checked: boolean;
+  checked?: boolean;
+}
+
+export interface IStorageCharacters {
+  characterId: string;
+  name: string;
+  rate: number;
 }
