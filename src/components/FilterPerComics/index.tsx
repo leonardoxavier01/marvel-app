@@ -3,6 +3,8 @@ import { CharactersContext } from "../../contexts/CharactersContext";
 import Button from "../Button";
 import comicsForFilter from "../../json/comicsForFilter.json";
 import { IResponseComics } from "../../types/interfaces";
+import { BoxButton, BoxScrolling, ContainerFilter } from "./styles";
+import Checkbox from "../Checkbox";
 
 const FilterPerComics: React.FC = () => {
   const [checkedState, setCheckedState] = useState<boolean[]>([]);
@@ -37,28 +39,23 @@ const FilterPerComics: React.FC = () => {
   console.log(searchPerComic);
 
   return (
-    <div>
-      <div>
-        <details open>
-          <summary>
-            <button onClick={dataFetching}>filtrar comic</button>
-            <h2>Details</h2>
-          </summary>
-          {dataFilter.map((item: any, index: number) => (
-            <div key={index}>
-              <input
-                type={"checkbox"}
-                id={item.title}
-                name={item.title}
-                checked={checkedState[index]}
-                onChange={() => handleOnChange(index)}
-              />
-              <label htmlFor={item.title}>{item.title}</label>
-            </div>
-          ))}
-        </details>
-      </div>
-    </div>
+    <ContainerFilter>
+      <summary>
+        <h2>Filter by comics</h2>
+      </summary>
+      <BoxScrolling>
+        <Checkbox
+          dataFilter={dataFilter}
+          checkedState={checkedState}
+          handleOnChange={handleOnChange}
+        />
+      </BoxScrolling>
+      <BoxButton>
+        <Button onClick={dataFetching} disabled={false}>
+          Apply
+        </Button>
+      </BoxButton>
+    </ContainerFilter>
   );
 };
 
