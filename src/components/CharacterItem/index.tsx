@@ -1,14 +1,21 @@
 import { useState } from "react";
-import { ContainerCharacter, NameSumary } from "./styles";
+import {
+  ContainerCharacter,
+  ImageItemStyled,
+  NameAndImage,
+  NameSumary,
+} from "./styles";
 
 interface ICharacterItemProps {
   nameItem: string;
   descriptionItem: string;
+  imageItem: string;
 }
 
 const CharacterItem: React.FC<ICharacterItemProps> = ({
   nameItem,
   descriptionItem,
+  imageItem,
 }) => {
   const [isDoneDetails, setIsDoneDetails] = useState<boolean>(false);
 
@@ -22,12 +29,15 @@ const CharacterItem: React.FC<ICharacterItemProps> = ({
 
   return (
     <ContainerCharacter>
-      <NameSumary>
-        <p>{nameItem}</p>
-        {descriptionItem.length > 0 && (
-          <summary onClick={handleIsDone}>Descriçao</summary>
-        )}
-      </NameSumary>
+      <NameAndImage>
+        <ImageItemStyled src={imageItem} alt={`image ${nameItem}`} />
+        <NameSumary>
+          <p>{nameItem}</p>
+          {descriptionItem.length > 0 && (
+            <summary onClick={handleIsDone}>Descriçao</summary>
+          )}
+        </NameSumary>
+      </NameAndImage>
       {descriptionItem.length > 0 && (
         <>
           <details open={isDoneDetails}>
