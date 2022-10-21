@@ -36,8 +36,6 @@ const FilterPerComics: React.FC = () => {
     setCheckedState(updatedCheckedState);
   };
 
-  console.log(searchPerComic);
-
   return (
     <ContainerFilter>
       <summary>

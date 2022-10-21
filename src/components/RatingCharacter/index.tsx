@@ -28,7 +28,6 @@ const RatingCharacter = () => {
       })
       .then((response) => {
         setDataCharacter(response.data.data.results);
-        console.log(response.data.data.results);
       })
       .catch(() => alert(`Digite um nome correto`));
   };
