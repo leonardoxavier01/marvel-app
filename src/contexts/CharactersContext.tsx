@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import api from "../services/contants";
-import { IResponseCharacters } from "../types/interfaces";
+import { IResponseCharacters, IStorageCharacters } from "../types/interfaces";
 
 interface ICartContext {
   dataCharacters: IResponseCharacters[];
@@ -18,6 +18,8 @@ interface ICartContext {
   noMorePosts: boolean;
   searchPerComic: string[];
   setSearchPerComics: (newState: string[]) => void;
+  storageState: IStorageCharacters[] | null;
+  updateStorageState: (charactersStorage: IStorageCharacters[]) => void;
 }
 
 const initialValue = {
@@ -30,6 +32,9 @@ const initialValue = {
   noMorePosts: false,
   searchPerComic: [],
   setSearchPerComics: () => {},
+  storageState: [],
+  setStorageState: () => {},
+  updateStorageState: () => {},
 };
 
 export const CharactersContext = createContext<ICartContext>(initialValue);
@@ -45,6 +50,7 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   const [noMorePosts, setNoMorePost] = useState<boolean>(false);
   const [searchNameStart, setSearchNameStart] = useState<string>("");
   const [searchPerComic, setSearchPerComics] = useState<string[]>([]);
+  const [storageState, setStorageState] = useState([]);
 
   const endpointAndParams: string = `characters?${
     searchNameStart.length > 0 ? `nameStartsWith=${searchNameStart}&` : ""
@@ -60,11 +66,32 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
         }
       })
       .catch((err) => alert(`${err} There was an error here`));
+    setSearchNameStart("");
+  };
+
+  const getStorage = () => {
+    const storage = localStorage.getItem("items");
+
+    if (storage) {
+      const storageParse = JSON.parse(storage);
+      setStorageState(storageParse);
+    }
   };
 
   useEffect(() => {
     dataFetching();
+    getStorage();
   }, []);
+
+  const updateStorageState = (charactersStorage: IStorageCharacters[]) => {
+    localStorage.setItem("items", JSON.stringify(charactersStorage));
+    const storage = localStorage.getItem("items");
+
+    if (storage) {
+      const storageParse = JSON.parse(storage);
+      setStorageState(storageParse);
+    }
+  };
 
   const handleMore = useCallback(async () => {
     try {
@@ -94,6 +121,8 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
         noMorePosts,
         searchPerComic,
         setSearchPerComics,
+        storageState,
+        updateStorageState,
       }}
     >
       {children}
