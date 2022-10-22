@@ -39,14 +39,21 @@ const RatingCharacter = () => {
       });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    dataFetching();
+  };
+
   return (
     <ContainerCharacter>
-      <InputText
-        placeholder="Procure pelo nome completo"
-        onChange={(e) => setSearchPerName(e.target.value)}
-        value={searchPerName}
-        onClick={dataFetching}
-      />
+      <form onSubmit={handleSubmit}>
+        <InputText
+          placeholder="Procure pelo nome completo"
+          onChange={(e) => setSearchPerName(e.target.value)}
+          value={searchPerName}
+        />
+      </form>
       {isLoading ? (
         <Spinner />
       ) : (

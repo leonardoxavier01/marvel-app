@@ -19,14 +19,21 @@ const CharactersList: React.FC = () => {
     isLoadingMore,
   } = useContext(CharactersContext);
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    dataFetching();
+  };
+
   return (
     <ContainerCharacter>
-      <InputText
-        placeholder="Procure pelo começo do nome"
-        onChange={(e) => setSearchNameStart(e.target.value)}
-        value={searchNameStart}
-        onClick={dataFetching}
-      />
+      <form onSubmit={handleSubmit}>
+        <InputText
+          placeholder="Procure pelo começo do nome"
+          onChange={(e) => setSearchNameStart(e.target.value)}
+          value={searchNameStart}
+        />
+      </form>
       <FilterPerComics />
       {isLoading ? (
         <Spinner />
