@@ -1,13 +1,12 @@
-import { ContainerSpinner } from "./styles"
+import React from "react";
+import { ContainerSpinner } from "./styles";
 
-
-
-const Spinner = () => {
+const Spinner: React.FC = () => {
   return (
     <ContainerSpinner>
       <div></div>
     </ContainerSpinner>
-  )
-}
+  );
+};
 
-export default Spinner
+export default Spinner;
