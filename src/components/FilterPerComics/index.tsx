@@ -3,12 +3,18 @@ import { CharactersContext } from "../../contexts/CharactersContext";
 import Button from "../Button";
 import comicsForFilter from "../../json/comicsForFilter.json";
 import { IResponseComics } from "../../types/interfaces";
-import { BoxButton, BoxScrolling, ContainerFilter } from "./styles";
+import {
+  BoxButton,
+  BoxScrolling,
+  ContainerFilter,
+  SummaryStyled,
+} from "./styles";
 import Checkbox from "../Checkbox";
 
 const FilterPerComics: React.FC = () => {
   const [checkedState, setCheckedState] = useState<boolean[]>([]);
   const [dataFilter, setDataFilter] = useState<IResponseComics[]>([]);
+  const [openDetails, setOpenDetails] = useState<boolean>(false);
 
   useEffect(() => {
     setCheckedState(new Array(comicsForFilter.length).fill(false));
@@ -36,24 +42,37 @@ const FilterPerComics: React.FC = () => {
     setCheckedState(updatedCheckedState);
   };
 
+  const handleOpenDetails = () => {
+    if (!openDetails) {
+      setOpenDetails(true);
+      return;
+    }
+    {
+      setOpenDetails(false);
+    }
+  };
+
   return (
-    <ContainerFilter>
-      <summary>
-        <h2>Filter by comics</h2>
-      </summary>
-      <BoxScrolling>
-        <Checkbox
-          dataFilter={dataFilter}
-          checkedState={checkedState}
-          handleOnChange={handleOnChange}
-        />
-      </BoxScrolling>
-      <BoxButton>
-        <Button onClick={dataFetching} disabled={false}>
-          Apply
-        </Button>
-      </BoxButton>
-    </ContainerFilter>
+    <>
+      <SummaryStyled onClick={handleOpenDetails}>
+        <h2>Filtre por quadrinhos</h2>
+      </SummaryStyled>
+      <ContainerFilter open={openDetails}>
+        <summary></summary>
+        <BoxScrolling>
+          <Checkbox
+            dataFilter={dataFilter}
+            checkedState={checkedState}
+            handleOnChange={handleOnChange}
+          />
+        </BoxScrolling>
+        <BoxButton>
+          <Button onClick={dataFetching} disabled={false}>
+            Apply
+          </Button>
+        </BoxButton>
+      </ContainerFilter>
+    </>
   );
 };
 

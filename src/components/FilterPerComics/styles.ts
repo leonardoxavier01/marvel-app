@@ -37,6 +37,17 @@ export const BoxScrolling = styled.div`
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: ${(props) => props.theme.colors.primary};
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid ${(props) => props.theme.colors.secondary};
+  }
+`;
+
+export const SummaryStyled = styled.summary`
+  font-size: 0.8rem;
+  width: 100%;
+  text-align: end;
+  cursor: pointer;
+  :hover {
+    text-decoration: 0.2rem underline;
+    text-decoration-color: ${(props) => props.theme.colors.primary};
   }
 `;
