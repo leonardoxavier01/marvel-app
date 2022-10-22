@@ -3,9 +3,9 @@ import { CharactersContext } from "../../contexts/CharactersContext";
 import api from "../../services/contants";
 import { IResponseCharacters } from "../../types/interfaces";
 import CardCharacter from "../CardCharacter";
-import CharacterItem from "../CharacterItem";
 import InputText from "../InputText";
 import Rate from "../Rate";
+import Spinner from "../Spinner";
 import {
   CharacterDetails,
   ContainerCharacter,
@@ -14,12 +14,13 @@ import {
 
 const RatingCharacter = () => {
   const [dataCharacter, setDataCharacter] = useState<IResponseCharacters[]>([]);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerName, setSearchPerName] = useState<string>("");
-
-  const { storageState, updateStorageState } = useContext(CharactersContext);
+  const { storageState } = useContext(CharactersContext);
+  const [messageErro, setMessageErro] = useState<boolean>(false);
 
   const dataFetching = () => {
+    setIsLoading(true);
     api
       .get("characters?", {
         params: {
@@ -28,8 +29,15 @@ const RatingCharacter = () => {
       })
       .then((response) => {
         setDataCharacter(response.data.data.results);
+        setIsLoading(false);
+        if(response.data.data.results.length == 0){
+          alert('Esse personagem não existe')
+        }
       })
-      .catch(() => alert(`Digite um nome correto`));
+      .catch(() => {
+        setIsLoading(false);
+        alert(`Preencha o campo`);
+      });
   };
 
   return (
@@ -40,23 +48,29 @@ const RatingCharacter = () => {
         value={searchPerName}
         onClick={dataFetching}
       />
-      {dataCharacter.length > 0 ? (
-        <>
-          {dataCharacter?.map((item) => (
-            <CharacterDetails key={item.id}>
-              <CardCharacter
-                nameItem={item.name}
-                imageItem={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              />
-              <DeatilsAndRating>
-                <p>{item.description}</p>
-                <Rate characterId={item.id} characterName={item.name} />
-              </DeatilsAndRating>
-            </CharacterDetails>
-          ))}
-        </>
+      {isLoading ? (
+        <Spinner />
       ) : (
-        <h1>Procure e avalie um personagem</h1>
+        <>
+          {dataCharacter.length > 0 ? (
+            <>
+              {dataCharacter?.map((item) => (
+                <CharacterDetails key={item.id}>
+                  <CardCharacter
+                    nameItem={item.name}
+                    imageItem={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                  />
+                  <DeatilsAndRating>
+                    <p>{item.description}</p>
+                    <Rate characterId={item.id} characterName={item.name} />
+                  </DeatilsAndRating>
+                </CharacterDetails>
+              ))}
+            </>
+          ) : (
+            <h1>Procure e avalie um personagem</h1>
+          )}
+        </>
       )}
 
       <div>

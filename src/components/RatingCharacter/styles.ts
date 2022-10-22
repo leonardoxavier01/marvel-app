@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerCharacter = styled.div`
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   width: 50%;
   border-right: 1px solid ${(props) => props.theme.colors.secondary};
   padding: 0 0 0 2rem;
@@ -13,7 +13,7 @@ export const ContainerCharacter = styled.div`
 
   h2 {
     margin-top: 1rem;
-    font-size: 1.95rem;
+    font-size: 1.5rem;
   }
 `;
 

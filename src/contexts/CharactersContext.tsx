@@ -20,6 +20,8 @@ interface ICartContext {
   setSearchPerComics: (newState: string[]) => void;
   storageState: IStorageCharacters[] | null;
   updateStorageState: (charactersStorage: IStorageCharacters[]) => void;
+  isLoading: boolean | undefined;
+  isLoadingMore: boolean | undefined;
 }
 
 const initialValue = {
@@ -35,6 +37,8 @@ const initialValue = {
   storageState: [],
   setStorageState: () => {},
   updateStorageState: () => {},
+  isLoading: false,
+  isLoadingMore: false
 };
 
 export const CharactersContext = createContext<ICartContext>(initialValue);
@@ -47,6 +51,8 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   const [dataCharacters, setDataCharacters] = useState<IResponseCharacters[]>(
     []
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [noMorePosts, setNoMorePost] = useState<boolean>(false);
   const [searchNameStart, setSearchNameStart] = useState<string>("");
   const [searchPerComic, setSearchPerComics] = useState<string[]>([]);
@@ -57,16 +63,17 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   }${searchPerComic.length > 0 ? `comics=${searchPerComic}` : ""}`;
 
   const dataFetching = () => {
+    setIsLoading(true)
     api
       .get(endpointAndParams)
       .then((response) => {
         setDataCharacters(response.data.data.results);
+        setIsLoading(false);
         if (response.data.data.results.length >= 1) {
           setNoMorePost(false);
         }
       })
       .catch((err) => alert(`${err} There was an error here`));
-    setSearchNameStart("");
   };
 
   const getStorage = () => {
@@ -94,6 +101,7 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   };
 
   const handleMore = useCallback(async () => {
+    setIsLoadingMore(true);
     try {
       const offset = dataCharacters.length;
       const response = await api.get(endpointAndParams, {
@@ -101,6 +109,7 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
           offset,
         },
       });
+      setIsLoadingMore(false);
       if (response.data.data.results.length <= 1) {
         setNoMorePost(true);
       }
@@ -113,6 +122,8 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
     <CharactersContext.Provider
       value={{
         dataCharacters,
+        isLoading,
+        isLoadingMore,
         setDataCharacters,
         searchNameStart,
         setSearchNameStart,

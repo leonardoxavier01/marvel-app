@@ -5,6 +5,7 @@ import Button from "../Button";
 import CharacterItem from "../CharacterItem";
 import FilterPerComics from "../FilterPerComics";
 import InputText from "../InputText";
+import Spinner from "../Spinner";
 
 const CharactersList: React.FC = () => {
   const {
@@ -14,6 +15,8 @@ const CharactersList: React.FC = () => {
     dataFetching,
     handleMore,
     noMorePosts,
+    isLoading,
+    isLoadingMore,
   } = useContext(CharactersContext);
 
   return (
@@ -25,24 +28,31 @@ const CharactersList: React.FC = () => {
         onClick={dataFetching}
       />
       <FilterPerComics />
-      {dataCharacters.length > 0 ? (
-        <>
-          <ul>
-            {dataCharacters.map((item, index) => (
-              <CharacterItem
-                key={`itemId${item.id}&position=${index}`}
-                imageItem={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-                nameItem={item.name}
-                descriptionItem={item.description}
-              />
-            ))}
-          </ul>
-          <Button disabled={noMorePosts} onClick={handleMore}>
-            See more
-          </Button>
-        </>
+      {isLoading ? (
+        <Spinner />
       ) : (
-        <p>Nenhum resultado encontrado</p>
+        <>
+          {dataCharacters.length > 0 ? (
+            <>
+              <ul>
+                {dataCharacters.map((item, index) => (
+                  <CharacterItem
+                    key={`itemId${item.id}&position=${index}`}
+                    imageItem={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                    nameItem={item.name}
+                    descriptionItem={item.description}
+                  />
+                ))}
+              </ul>
+              {isLoadingMore && <Spinner />}
+              <Button disabled={noMorePosts} onClick={handleMore}>
+                See more
+              </Button>
+            </>
+          ) : (
+            <p>Nenhum resultado encontrado</p>
+          )}
+        </>
       )}
     </ContainerCharacter>
   );
