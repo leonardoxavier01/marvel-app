@@ -22,7 +22,7 @@ const CharactersList: React.FC = () => {
   return (
     <ContainerCharacter>
       <InputText
-        placeholder="Search name start with"
+        placeholder="Procure pelo começo do nome"
         onChange={(e) => setSearchNameStart(e.target.value)}
         value={searchNameStart}
         onClick={dataFetching}

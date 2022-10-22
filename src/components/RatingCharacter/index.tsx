@@ -17,7 +17,6 @@ const RatingCharacter = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerName, setSearchPerName] = useState<string>("");
   const { storageState } = useContext(CharactersContext);
-  const [messageErro, setMessageErro] = useState<boolean>(false);
 
   const dataFetching = () => {
     setIsLoading(true);
@@ -30,8 +29,8 @@ const RatingCharacter = () => {
       .then((response) => {
         setDataCharacter(response.data.data.results);
         setIsLoading(false);
-        if(response.data.data.results.length == 0){
-          alert('Esse personagem não existe')
+        if (response.data.data.results.length == 0) {
+          alert("Esse personagem não existe");
         }
       })
       .catch(() => {
@@ -43,7 +42,7 @@ const RatingCharacter = () => {
   return (
     <ContainerCharacter>
       <InputText
-        placeholder="Search by complete name"
+        placeholder="Procure pelo nome completo"
         onChange={(e) => setSearchPerName(e.target.value)}
         value={searchPerName}
         onClick={dataFetching}
@@ -72,7 +71,6 @@ const RatingCharacter = () => {
           )}
         </>
       )}
-
       <div>
         <h2>Suas avaliações:</h2>
         {storageState?.map((item) => (
