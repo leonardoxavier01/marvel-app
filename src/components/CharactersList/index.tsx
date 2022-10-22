@@ -1,6 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "styled-components";
 import { CharactersContext } from "../../contexts/CharactersContext";
-import { ContainerCharacter } from "./styles";
+import { ContainerCharacter, ContainerFilters, SummaryStyled } from "./styles";
+import { FiFilter } from "react-icons/fi";
 import Button from "../Button";
 import CharacterItem from "../CharacterItem";
 import FilterPerComics from "../FilterPerComics";
@@ -13,11 +15,16 @@ const CharactersList: React.FC = () => {
     searchNameStart,
     setSearchNameStart,
     dataFetching,
+    viewComicsCheked,
     handleMore,
     noMorePosts,
     isLoading,
     isLoadingMore,
+    openDetails,
+    setOpenDetails,
   } = useContext(CharactersContext);
+
+  const { colors } = useContext(ThemeContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,15 +32,34 @@ const CharactersList: React.FC = () => {
     dataFetching();
   };
 
+  const handleOpenDetails = () => {
+    if (!openDetails) {
+      setOpenDetails(true);
+      return;
+    }
+    {
+      setOpenDetails(false);
+    }
+  };
+
   return (
     <ContainerCharacter>
-      <form onSubmit={handleSubmit}>
-        <InputText
-          placeholder="Procure pelo começo do nome"
-          onChange={(e) => setSearchNameStart(e.target.value)}
-          value={searchNameStart}
-        />
-      </form>
+      <ContainerFilters>
+        <form onSubmit={handleSubmit}>
+          <InputText
+            placeholder="Procure pelo começo do nome"
+            onChange={(e) => setSearchNameStart(e.target.value)}
+            value={searchNameStart}
+          />
+        </form>
+        <SummaryStyled onClick={handleOpenDetails}>
+          Filtre por quadrinhos <FiFilter size={18} color={colors.primary} />
+        </SummaryStyled>
+      </ContainerFilters>
+      <p>{searchNameStart}</p>
+      {viewComicsCheked.map((item) => (
+        <p key={item.id}>{item.title}</p>
+      ))}
       <FilterPerComics />
       {isLoading ? (
         <Spinner />

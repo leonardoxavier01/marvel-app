@@ -6,7 +6,11 @@ import {
   useState,
 } from "react";
 import api from "../services/contants";
-import { IResponseCharacters, IStorageCharacters } from "../types/interfaces";
+import {
+  IResponseCharacters,
+  IResponseComics,
+  IStorageCharacters,
+} from "../types/interfaces";
 
 interface ICartContext {
   dataCharacters: IResponseCharacters[];
@@ -22,6 +26,12 @@ interface ICartContext {
   updateStorageState: (charactersStorage: IStorageCharacters[]) => void;
   isLoading: boolean | undefined;
   isLoadingMore: boolean | undefined;
+  viewComicsCheked: IResponseComics[];
+  setViewComicsCheked: (newState: IResponseComics[]) => void;
+  openDetails: boolean;
+  setOpenDetails: (newState: boolean) => void;
+  checkedStateComic: boolean[];
+  setCheckedStateComic: (newState: boolean[]) => void;
 }
 
 const initialValue = {
@@ -38,7 +48,13 @@ const initialValue = {
   setStorageState: () => {},
   updateStorageState: () => {},
   isLoading: false,
-  isLoadingMore: false
+  isLoadingMore: false,
+  viewComicsCheked: [],
+  setViewComicsCheked: () => {},
+  openDetails: false,
+  setOpenDetails: () => {},
+  checkedStateComic: [],
+  setCheckedStateComic: () => {},
 };
 
 export const CharactersContext = createContext<ICartContext>(initialValue);
@@ -56,6 +72,11 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   const [noMorePosts, setNoMorePost] = useState<boolean>(false);
   const [searchNameStart, setSearchNameStart] = useState<string>("");
   const [searchPerComic, setSearchPerComics] = useState<string[]>([]);
+  const [checkedStateComic, setCheckedStateComic] = useState<boolean[]>([]);
+  const [openDetails, setOpenDetails] = useState<boolean>(false);
+  const [viewComicsCheked, setViewComicsCheked] = useState<IResponseComics[]>(
+    []
+  );
   const [storageState, setStorageState] = useState([]);
 
   const endpointAndParams: string = `characters?${
@@ -63,13 +84,15 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   }${searchPerComic.length > 0 ? `comics=${searchPerComic}` : ""}`;
 
   const dataFetching = () => {
-    setIsLoading(true)
+    setOpenDetails(false);
+    setIsLoading(true);
+
     api
       .get(endpointAndParams)
       .then((response) => {
         setDataCharacters(response.data.data.results);
         setIsLoading(false);
-        if (response.data.data.results.length >= 1) {
+        if (response.data.data.results.length <= 1) {
           setNoMorePost(false);
         }
       })
@@ -131,9 +154,15 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
         handleMore,
         noMorePosts,
         searchPerComic,
+        checkedStateComic,
+        setCheckedStateComic,
+        openDetails,
+        setOpenDetails,
         setSearchPerComics,
         storageState,
         updateStorageState,
+        viewComicsCheked,
+        setViewComicsCheked,
       }}
     >
       {children}
