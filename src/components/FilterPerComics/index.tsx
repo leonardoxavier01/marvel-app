@@ -67,7 +67,7 @@ const FilterPerComics: React.FC = () => {
           </BoxScrolling>
           <BoxButton>
             <Button onClick={dataFetching} disabled={false}>
-              Apply
+              Apicar
             </Button>
           </BoxButton>
         </WrapperDetails>

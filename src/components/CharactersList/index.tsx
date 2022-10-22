@@ -79,7 +79,7 @@ const CharactersList: React.FC = () => {
               </ul>
               {isLoadingMore && <Spinner />}
               <Button disabled={noMorePosts} onClick={handleMore}>
-                See more
+                Ver mais
               </Button>
             </>
           ) : (
