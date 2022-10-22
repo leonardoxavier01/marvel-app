@@ -8,4 +8,5 @@ export default {
   },
 
   borderRadius: "10px",
+  boxShadow: "0px 6px 20px -8px #3A3E3E",
 };

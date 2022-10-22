@@ -10,5 +10,6 @@ declare module "styled-components" {
       black: string;
     };
     borderRadius: string;
+    boxShadow: string;
   }
 }

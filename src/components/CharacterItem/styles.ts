@@ -5,7 +5,7 @@ export const ContainerCharacter = styled.li`
   align-items: flex-start;
   flex-direction: column;
   justify-content: flex-start;
-  border: 1px solid ${(props) => props.theme.colors.primary};
+  box-shadow: ${(props) => props.theme.boxShadow};
   margin: 1rem 0;
   padding: 1rem;
   border-radius: ${(props) => props.theme.borderRadius};
