@@ -1,13 +1,19 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "styled-components";
 import { CharactersContext } from "../../contexts/CharactersContext";
-import { ContainerCharacter, ContainerFilters, SummaryStyled } from "./styles";
+import {
+  ContainerCharacter,
+  ContainerFilters,
+  SummaryStyled,
+  WrapperCheked,
+} from "./styles";
 import { FiFilter } from "react-icons/fi";
 import Button from "../Button";
 import CharacterItem from "../CharacterItem";
 import FilterPerComics from "../FilterPerComics";
 import InputText from "../InputText";
 import Spinner from "../Spinner";
+import ViewCheked from "../ViewCheked";
 
 const CharactersList: React.FC = () => {
   const {
@@ -56,10 +62,14 @@ const CharactersList: React.FC = () => {
           Filtre por quadrinhos <FiFilter size={18} color={colors.primary} />
         </SummaryStyled>
       </ContainerFilters>
-      <p>{searchNameStart}</p>
-      {viewComicsCheked.map((item) => (
-        <p key={item.id}>{item.title}</p>
-      ))}
+      <WrapperCheked>
+        {searchNameStart.length > 0 && (
+          <ViewCheked nameItem={searchNameStart} />
+        )}
+        {viewComicsCheked.map((item) => (
+          <ViewCheked key={item.id} nameItem={item.title} />
+        ))}
+      </WrapperCheked>
       <FilterPerComics />
       {isLoading ? (
         <Spinner />

@@ -27,3 +27,8 @@ export const SummaryStyled = styled.summary`
     text-decoration-color: ${(props) => props.theme.colors.primary};
   }
 `;
+
+export const WrapperCheked = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
