@@ -23,6 +23,10 @@ export const ContainerFilters = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media (max-width: 1080px) {
+    margin-top: 1.5rem;
+  }
 `;
 
 export const SummaryStyled = styled.summary`

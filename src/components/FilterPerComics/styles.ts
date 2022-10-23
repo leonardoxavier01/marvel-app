@@ -10,7 +10,7 @@ export const ContainerFilter = styled.div`
 export const WrapperDetails = styled.details`
   background-color: ${(props) => props.theme.colors.background};
   border-radius: ${(props) => props.theme.borderRadius};
-  border: 1px solid ${(props) => props.theme.colors.secondary};
+  box-shadow: ${(props) => props.theme.boxShadow};
   padding: 0 2rem;
   width: 28rem;
   z-index: 8;
@@ -19,7 +19,11 @@ export const WrapperDetails = styled.details`
   top: 32px;
 
   @media (max-width: 1236px) {
-    top: 55px;
+    top: 60px;
+  }
+
+  @media (max-width: 600px) {
+    top: 80px;
   }
 
   @media (max-width: 500px) {
