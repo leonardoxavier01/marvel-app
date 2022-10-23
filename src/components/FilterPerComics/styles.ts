@@ -17,6 +17,14 @@ export const WrapperDetails = styled.details`
   max-height: 22rem;
   position: absolute;
   top: 32px;
+
+  @media (max-width: 1236px) {
+    top: 55px;
+  }
+
+  @media (max-width: 500px) {
+    width: 20rem;
+  }
 `;
 
 export const BoxButton = styled.div`
