@@ -9,6 +9,7 @@ import Spinner from "../Spinner";
 import {
   CharacterDetails,
   ContainerCharacter,
+  ContainerRates,
   DeatilsAndRating,
 } from "./styles";
 
@@ -39,14 +40,21 @@ const RatingCharacter = () => {
       });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    dataFetching();
+  };
+
   return (
     <ContainerCharacter>
-      <InputText
-        placeholder="Procure pelo nome completo"
-        onChange={(e) => setSearchPerName(e.target.value)}
-        value={searchPerName}
-        onClick={dataFetching}
-      />
+      <form onSubmit={handleSubmit}>
+        <InputText
+          placeholder="Procure pelo nome completo"
+          onChange={(e) => setSearchPerName(e.target.value)}
+          value={searchPerName}
+        />
+      </form>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -73,13 +81,15 @@ const RatingCharacter = () => {
       )}
       <div>
         <h2>Suas avaliações:</h2>
-        {storageState?.map((item) => (
-          <Rate
-            key={item.characterId}
-            characterId={item.characterId}
-            characterName={item.name}
-          />
-        ))}
+        <ContainerRates>
+          {storageState?.map((item) => (
+            <Rate
+              key={item.characterId}
+              characterId={item.characterId}
+              characterName={item.name}
+            />
+          ))}
+        </ContainerRates>
       </div>
     </ContainerCharacter>
   );

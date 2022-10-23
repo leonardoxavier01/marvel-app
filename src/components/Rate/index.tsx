@@ -11,7 +11,8 @@ interface IRateProps {
 }
 
 const Rate: React.FC<IRateProps> = ({ characterId, characterName }) => {
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState<number>(0);
+  const [indexStorageDone, setIndexStorageDone] = useState<number>(-1);
 
   const { storageState, updateStorageState } = useContext(CharactersContext);
 
@@ -27,6 +28,11 @@ const Rate: React.FC<IRateProps> = ({ characterId, characterName }) => {
         setRate(storageState[indexStorage].rate);
       }
     }
+
+    const indexStorage = storageState.findIndex((objct: any) => {
+      return objct.characterId === characterId;
+    });
+    setIndexStorageDone(indexStorage);
   }, []);
 
   const handleRating = (givenRating: number) => {
@@ -56,9 +62,17 @@ const Rate: React.FC<IRateProps> = ({ characterId, characterName }) => {
     }
     const newArray = [...storageState, ...arrayStorage];
 
-    updateStorageState(newArray)
+    updateStorageState(newArray);
 
     return;
+  };
+
+  const removeItemStorage = (characterId: string) => {
+    const arrayFiltered: IStorageCharacters[] = storageState?.filter(
+      (item) => item.characterId !== characterId
+    );
+
+    updateStorageState(arrayFiltered);
   };
 
   return (
@@ -83,11 +97,17 @@ const Rate: React.FC<IRateProps> = ({ characterId, characterName }) => {
                       : colors.secondary
                   }
                 />
+                {givenRating}
               </Rating>
             </label>
           );
         })}
       </WrapperRate>
+      {storageState[indexStorageDone] && (
+        <span onClick={() => removeItemStorage(characterId)}>
+          Remover avaliação
+        </span>
+      )}
     </Container>
   );
 };

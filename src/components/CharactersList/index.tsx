@@ -1,11 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "styled-components";
 import { CharactersContext } from "../../contexts/CharactersContext";
-import { ContainerCharacter } from "./styles";
+import {
+  ContainerCharacter,
+  ContainerFilters,
+  SummaryStyled,
+  WrapperCheked,
+} from "./styles";
+import { FiFilter } from "react-icons/fi";
 import Button from "../Button";
 import CharacterItem from "../CharacterItem";
 import FilterPerComics from "../FilterPerComics";
 import InputText from "../InputText";
 import Spinner from "../Spinner";
+import ViewCheked from "../ViewCheked";
 
 const CharactersList: React.FC = () => {
   const {
@@ -13,20 +21,55 @@ const CharactersList: React.FC = () => {
     searchNameStart,
     setSearchNameStart,
     dataFetching,
+    viewComicsCheked,
     handleMore,
     noMorePosts,
     isLoading,
     isLoadingMore,
+    openDetails,
+    setOpenDetails,
   } = useContext(CharactersContext);
+
+  const { colors } = useContext(ThemeContext);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    dataFetching();
+  };
+
+  const handleOpenDetails = () => {
+    if (!openDetails) {
+      setOpenDetails(true);
+      return;
+    }
+    {
+      setOpenDetails(false);
+    }
+  };
 
   return (
     <ContainerCharacter>
-      <InputText
-        placeholder="Procure pelo começo do nome"
-        onChange={(e) => setSearchNameStart(e.target.value)}
-        value={searchNameStart}
-        onClick={dataFetching}
-      />
+      <ContainerFilters>
+        <form onSubmit={handleSubmit}>
+          <InputText
+            placeholder="Procure pelo começo do nome"
+            onChange={(e) => setSearchNameStart(e.target.value)}
+            value={searchNameStart}
+          />
+        </form>
+        <SummaryStyled onClick={handleOpenDetails}>
+          Filtre por quadrinhos <FiFilter size={18} color={colors.primary} />
+        </SummaryStyled>
+      </ContainerFilters>
+      <WrapperCheked>
+        {searchNameStart.length > 0 && (
+          <ViewCheked nameItem={searchNameStart} />
+        )}
+        {viewComicsCheked.map((item) => (
+          <ViewCheked key={item.id} nameItem={item.title} />
+        ))}
+      </WrapperCheked>
       <FilterPerComics />
       {isLoading ? (
         <Spinner />
@@ -46,7 +89,7 @@ const CharactersList: React.FC = () => {
               </ul>
               {isLoadingMore && <Spinner />}
               <Button disabled={noMorePosts} onClick={handleMore}>
-                See more
+                Ver mais
               </Button>
             </>
           ) : (

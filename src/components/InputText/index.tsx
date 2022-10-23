@@ -3,10 +3,9 @@ import { BsSearch } from "react-icons/bs";
 import React, { ChangeEventHandler } from "react";
 
 interface IInputProps {
-    placeholder: string
-    onChange: ChangeEventHandler<HTMLInputElement>
-    value: string
-    onClick: React.MouseEventHandler<HTMLButtonElement>
+  placeholder: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  value: string;
 }
 
 const InputText: React.FC<IInputProps> = (props) => {
@@ -19,7 +18,7 @@ const InputText: React.FC<IInputProps> = (props) => {
         onChange={props.onChange}
         value={props.value}
       />
-      <button onClick={props.onClick}>
+      <button>
         <BsSearch size={20} />
       </button>
     </ContainerInput>
