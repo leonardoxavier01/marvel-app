@@ -3,7 +3,7 @@
 Aplicação web que consome dados da [Marvel comics](https://developer.marvel.com/) - A api da Marvel Comics permite que desenvolvedores em todos os lugares acessem informações sobre a vasta biblioteca de quadrinhos da Marvel desde o que está por vir até 70 anos atrás.
 
 Visite https://marvel-app-flame.vercel.app/
-![alt text](./src/assets/images/doc/print-marvel-app.png)
+![alt text](./src/assets/images/doc/print-marvel-app-.png)
 
 ### 📋 Pré-requisitos
 
