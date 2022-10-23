@@ -34,7 +34,7 @@ const CharacterItem: React.FC<ICharacterItemProps> = ({
         <NameSumary>
           <p>{nameItem}</p>
           {descriptionItem.length > 0 && (
-            <summary onClick={handleIsDone}>Descriçao</summary>
+            <summary onClick={handleIsDone}>Descrição</summary>
           )}
         </NameSumary>
       </NameAndImage>
