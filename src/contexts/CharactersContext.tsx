@@ -86,7 +86,7 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   const dataFetching = () => {
     setOpenDetails(false);
     setIsLoading(true);
-
+    
     api
       .get(endpointAndParams)
       .then((response) => {
