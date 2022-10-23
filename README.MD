@@ -2,6 +2,9 @@
 
 Aplicação web que consome dados da [Marvel comics](https://developer.marvel.com/) - A api da Marvel Comics permite que desenvolvedores em todos os lugares acessem informações sobre a vasta biblioteca de quadrinhos da Marvel desde o que está por vir até 70 anos atrás.
 
+Visite https://marvel-app-flame.vercel.app/
+![alt text](./src/assets/images/doc/print-marvel-app.png)
+
 ### 📋 Pré-requisitos
 
 ```
@@ -56,7 +59,7 @@ O objetivo da aplicação é fazer com que o usuário conheça diversos personag
 - [Typescript](https://www.typescriptlang.org/) - Linguagem de typagens
 - [Styled-components](https://styled-components.com/) - Css in Javascript
 - [React-icons](https://react-icons.github.io/react-icons/) - Biblioteca de ícones
-- [MD5](https://github.com/pvorb/node-md5) - Função JavaScript para hash 
+- [MD5](https://github.com/pvorb/node-md5) - Função JavaScript para hash
 
 ## 🎁 Expressões de gratidão
 
