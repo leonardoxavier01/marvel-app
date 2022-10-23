@@ -44,3 +44,10 @@ export const DeatilsAndRating = styled.div`
     margin: 0.3rem;
   }
 `;
+
+export const ContainerRates = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+`;

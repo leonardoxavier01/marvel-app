@@ -9,6 +9,7 @@ import Spinner from "../Spinner";
 import {
   CharacterDetails,
   ContainerCharacter,
+  ContainerRates,
   DeatilsAndRating,
 } from "./styles";
 
@@ -80,13 +81,15 @@ const RatingCharacter = () => {
       )}
       <div>
         <h2>Suas avaliações:</h2>
-        {storageState?.map((item) => (
-          <Rate
-            key={item.characterId}
-            characterId={item.characterId}
-            characterName={item.name}
-          />
-        ))}
+        <ContainerRates>
+          {storageState?.map((item) => (
+            <Rate
+              key={item.characterId}
+              characterId={item.characterId}
+              characterName={item.name}
+            />
+          ))}
+        </ContainerRates>
       </div>
     </ContainerCharacter>
   );

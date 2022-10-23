@@ -22,7 +22,7 @@ interface ICartContext {
   noMorePosts: boolean;
   searchPerComic: string[];
   setSearchPerComics: (newState: string[]) => void;
-  storageState: IStorageCharacters[] | null;
+  storageState: IStorageCharacters[];
   updateStorageState: (charactersStorage: IStorageCharacters[]) => void;
   isLoading: boolean | undefined;
   isLoadingMore: boolean | undefined;
@@ -77,7 +77,7 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   const [viewComicsCheked, setViewComicsCheked] = useState<IResponseComics[]>(
     []
   );
-  const [storageState, setStorageState] = useState([]);
+  const [storageState, setStorageState] = useState<IStorageCharacters[]>([]);
 
   const endpointAndParams: string = `characters?${
     searchNameStart.length > 0 ? `nameStartsWith=${searchNameStart}&` : ""
@@ -86,7 +86,7 @@ export function CharactersProvider({ children }: ICharactersContextProps) {
   const dataFetching = () => {
     setOpenDetails(false);
     setIsLoading(true);
-    
+
     api
       .get(endpointAndParams)
       .then((response) => {

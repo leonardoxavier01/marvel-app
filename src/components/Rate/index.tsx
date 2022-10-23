@@ -56,9 +56,17 @@ const Rate: React.FC<IRateProps> = ({ characterId, characterName }) => {
     }
     const newArray = [...storageState, ...arrayStorage];
 
-    updateStorageState(newArray)
+    updateStorageState(newArray);
 
     return;
+  };
+
+  const removeItemStorage = (characterId: string) => {
+    const arrayFiltered: IStorageCharacters[] = storageState?.filter(
+      (item) => item.characterId !== characterId
+    );
+
+    updateStorageState(arrayFiltered);
   };
 
   return (
@@ -83,11 +91,15 @@ const Rate: React.FC<IRateProps> = ({ characterId, characterName }) => {
                       : colors.secondary
                   }
                 />
+                {givenRating}
               </Rating>
             </label>
           );
         })}
       </WrapperRate>
+      <span onClick={() => removeItemStorage(characterId)}>
+        Remover avaliação
+      </span>
     </Container>
   );
 };
