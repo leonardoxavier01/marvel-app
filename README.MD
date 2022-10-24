@@ -3,7 +3,7 @@
 Aplicação web que consome dados da [Marvel comics](https://developer.marvel.com/) - A api da Marvel Comics permite que desenvolvedores em todos os lugares acessem informações sobre a vasta biblioteca de quadrinhos da Marvel desde o que está por vir até 70 anos atrás.
 
 Visite https://marvel-app-flame.vercel.app/
-![alt text](./src/assets/images/doc/print-marvel-app-.png)
+![print marvel app](./src/assets/images/doc/print-marvel-app-.png)
 
 ### 📋 Pré-requisitos
 
@@ -27,7 +27,13 @@ E depois:
 npm install
 ```
 
-E para rodar a aplicação no servidor em modo de desenvolvimento:
+Antes de rodar a aplicação no servidor é preciso configurar as keys da api,e  para acessar essas keys é preciso criar uma conta na [Developer Marvel](https://developer.marvel.com) e acessá-las em https://developer.marvel.com/account
+
+Após isso crie um arquivo .env na raiz do projeto contento as variáveis e os valores das suas keys como segue abaixo:
+
+![file .env](./src/assets/images/doc/code-env.png)
+
+Para rodar a aplicação no servidor em modo de desenvolvimento:
 
 ```
 npm run dev
