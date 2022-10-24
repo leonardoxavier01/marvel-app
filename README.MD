@@ -47,7 +47,7 @@ npm run preview
 
 ## 💻 Início da aplicação
 
-Na aplicação contém duas abas interativas, na primeira aba é renderizada uma lista de personagens da marvel, e nessa mesma aba é possível fazer um filtro pelos os nomes que começam os personagens e também pelos quadrinhos que participaram. Na segunda aba é popssível buscar um personagem pelo o nome completo e atribuir a este personagem uma nota em estrelas em quantidade de 1 a 5, que na qual esta pontuação sempre irá se manter ao sair e entrar novamente no site.
+Na aplicação contém duas abas interativas, na primeira aba é renderizada uma lista de personagens da marvel, e nessa mesma aba é possível fazer um filtro pelos os nomes que começam os personagens e também pelos quadrinhos que participaram. Na segunda aba é possível buscar um personagem pelo o nome completo e atribuir a este personagem uma nota em estrelas em quantidade de 1 a 5, que na qual esta pontuação sempre irá se manter ao sair e entrar novamente no site.
 
 ## 🎯 Objetivo da projeto
 
